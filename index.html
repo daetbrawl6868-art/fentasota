@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -106,14 +106,6 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  position: relative;
-}
-
-#app-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
 }
 
 body {
@@ -1452,9 +1444,6 @@ body {
   align-items: flex-end;
   gap: 12px;
   transition: all var(--transition-base);
-  pointer-events: auto;
-  position: relative;
-  z-index: 1;
 }
 
 .input-container:focus-within {
@@ -1474,9 +1463,6 @@ body {
   resize: none;
   max-height: 120px;
   line-height: 1.6;
-  pointer-events: auto;
-  user-select: text;
-  -webkit-user-select: text;
 }
 
 .chat-input::placeholder {
@@ -1497,9 +1483,6 @@ body {
   transition: all var(--transition-base);
   flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
-  pointer-events: auto;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 .btn-send:hover:not(:disabled) {
@@ -1515,166 +1498,6 @@ body {
 .btn-send svg {
   width: 22px;
   height: 22px;
-}
-
-/* =============================================================================
-   МОБИЛЬНАЯ АДАПТАЦИЯ
-   ============================================================================= */
-
-@media (max-width: 768px) {
-  /* Скрываем сайдбар по умолчанию на мобильных */
-  #sidebar {
-    transform: translateX(-100%);
-    width: 85%;
-    max-width: 320px;
-  }
-  
-  #sidebar.open {
-    transform: translateX(0);
-  }
-  
-  /* Убираем отступ для контента, так как сайдбар скрыт */
-  #main-content {
-    margin-left: 0;
-  }
-  
-  /* Топбар на всю ширину */
-  #topbar {
-    left: 0;
-    width: 100%;
-  }
-  
-  /* Контейнер чата с учетом виртуальной клавиатуры */
-  #chat-container {
-    padding-bottom: 80px;
-    min-height: calc(100vh - var(--topbar-height) - 100px);
-  }
-  
-  /* Панель ввода фиксируется внизу */
-  #input-panel {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 12px 16px;
-    padding-bottom: max(12px, env(safe-area-inset-bottom));
-    margin: 0;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border-medium);
-    z-index: 1000;
-  }
-  
-  /* Контейнер ввода адаптивный */
-  .input-container {
-    max-width: 100%;
-  }
-  
-  /* Текстовое поле более компактное */
-  #chat-input {
-    font-size: 16px; /* Предотвращает зум на iOS */
-    min-height: 44px; /* Минимальный размер касания iOS */
-    max-height: 120px;
-  }
-  
-  /* Кнопки более крупные для удобства нажатия */
-  .icon-btn, .btn-attach, .btn-voice {
-    min-width: 44px;
-    min-height: 44px;
-    padding: 10px;
-  }
-  
-  .send-btn, .btn-send {
-    min-width: 44px;
-    min-height: 44px;
-    padding: 10px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-  }
-  
-  /* Кнопки в топбаре */
-  .btn-new-chat, .btn-settings {
-    min-width: 40px;
-    min-height: 40px;
-    touch-action: manipulation;
-  }
-  
-  /* Сообщения более компактные */
-  .message {
-    padding: 12px 16px;
-    font-size: 15px;
-  }
-  
-  /* Кнопка меню всегда видна на мобильных */
-  #menu-btn {
-    display: flex !important;
-  }
-  
-  /* Уменьшаем отступы в топбаре */
-  #topbar {
-    padding: 0 12px;
-    height: 56px;
-  }
-  
-  /* Лого компактнее */
-  .logo {
-    font-size: 20px;
-  }
-  
-  /* Иконка модели меньше */
-  .model-icon {
-    width: 32px;
-    height: 32px;
-  }
-  
-  /* Модальные окна на весь экран на мобильных */
-  .modal-content {
-    width: 95%;
-    max-width: 95%;
-    max-height: 90vh;
-    margin: 20px auto;
-  }
-  
-  /* Дропдауны на всю ширину */
-  .dropdown-menu {
-    max-width: calc(100vw - 32px);
-  }
-}
-
-@media (max-width: 480px) {
-  /* Еще более компактный вид для маленьких экранов */
-  .logo-text {
-    display: none;
-  }
-  
-  #chat-input {
-    font-size: 16px;
-    padding: 12px 14px;
-  }
-  
-  .message {
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-  
-  .input-actions {
-    gap: 6px;
-  }
-}
-
-/* Фикс для iOS Safari - предотвращаем прыжки при открытии клавиатуры */
-@supports (-webkit-touch-callout: none) {
-  body {
-    position: fixed;
-    width: 100%;
-  }
-  
-  #app-container {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
 }
 
 /* =============================================================================
@@ -2237,6 +2060,87 @@ textarea.form-input {
     font-size: 44px;
   }
 }
+/* =============================================================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 280px;
+  }
+  
+  #sidebar {
+    transform: translateX(-100%);
+    width: 85%;
+    max-width: 320px;
+    transition: transform 0.3s ease;
+  }
+  
+  #sidebar.open {
+    transform: translateX(0);
+  }
+  
+  #main-content {
+    margin-left: 0;
+  }
+  
+  #topbar {
+    left: 0;
+    width: 100%;
+    height: 56px;
+    padding: 0 12px;
+  }
+  
+  .logo {
+    font-size: 20px;
+  }
+  
+  .model-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  #chat-container {
+    padding-bottom: 100px;
+  }
+  
+  .chat-input {
+    font-size: 16px !important;
+  }
+  
+  .btn-send {
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
+  .message {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+  
+  .sidebar-backdrop {
+    display: block;
+  }
+  
+  .btn-menu {
+    display: flex;
+  }
+  
+  .modal-content {
+    width: 95%;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    display: none;
+  }
+  
+  #topbar {
+    height: 52px;
+  }
+}
 </style>
 </head>
 <body>
@@ -2587,15 +2491,11 @@ textarea.form-input {
           id="chat-input" 
           placeholder="Введите сообщение..."
           rows="1"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="sentences"
-          spellcheck="true"
           onkeydown="handleInputKeydown(event)"
           oninput="autoResizeInput(this)"
         ></textarea>
         
-        <button class="btn-send" id="send-button" type="button" onclick="sendMessage()">
+        <button class="btn-send" id="send-button" onclick="console.log('Кнопка нажата!'); sendMessage();">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
           </svg>
@@ -2667,6 +2567,8 @@ textarea.form-input {
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+console.log('=== СКРИПТ ЗАГРУЖЕН ===');
+
 // =============================================================================
 // КОНФИГУРАЦИЯ API
 // =============================================================================
@@ -3137,15 +3039,26 @@ function formatMarkdownWithCodeBlocks(text) {
 }
 
 async function sendMessage() {
-  if (STATE.isGenerating) return;
+  console.log('=== sendMessage вызвана ===');
+  console.log('STATE.isGenerating:', STATE.isGenerating);
+  
+  if (STATE.isGenerating) {
+    console.log('Уже генерируется, выход');
+    return;
+  }
   
   const input = document.getElementById('chat-input');
+  console.log('Input найден:', input);
   if (!input) return;
   
   const content = input.value.trim();
+  console.log('Содержимое:', content);
   if (!content) return;
   
   const chat = STATE.chats.find(c => c.id === STATE.currentChatId);
+  console.log('Чат найден:', chat);
+  console.log('STATE.currentChatId:', STATE.currentChatId);
+  console.log('STATE.chats:', STATE.chats);
   if (!chat) return;
   
   chat.messages.push({
@@ -3510,9 +3423,12 @@ window.addEventListener('load', () => {
   console.log('%c⚛️ KVANT AI', 'font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #0a84ff, #bf5af2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: Inter;');
   console.log('%c✨ Sistema initialized', 'color: #10b981; font-size: 16px; font-weight: 600;');
   
+  console.log('=== ИНИЦИАЛИЗАЦИЯ ===');
   loadState();
+  console.log('STATE после loadState:', STATE);
   initLoadingScreen();
   initAuthParticles();
+  console.log('=== ИНИЦИАЛИЗАЦИЯ ЗАВЕРШЕНА ===');
 });
 
 document.addEventListener('keydown', (event) => {
@@ -4293,38 +4209,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300));
   }
   
-  // Мобильная адаптация - обработка фокуса на input
-  const chatInput = document.getElementById('chat-input');
-  if (chatInput) {
-    // Предотвращаем скролл при фокусе на iOS
-    chatInput.addEventListener('focus', () => {
-      setTimeout(() => {
-        chatInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300);
-    });
-    
-    // Автоматическая подстройка высоты textarea
-    chatInput.addEventListener('input', function() {
-      this.style.height = 'auto';
-      this.style.height = Math.min(this.scrollHeight, 200) + 'px';
-    });
-  }
-  
-  // Обработка изменения размера окна (ориентация на мобильных)
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      // Закрываем сайдбар при изменении ориентации на мобильных
-      if (window.innerWidth <= 768) {
-        closeSidebar();
-      }
-    }, 250);
-  });
-  
-  // Закрытие сайдбара при клике вне его на мобильных
-  document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 768) {
+  // Мобильная адаптация
+  if (window.innerWidth <= 768) {
+    document.addEventListener('click', (e) => {
       const sidebar = document.getElementById('sidebar');
       const menuBtn = document.getElementById('menu-btn');
       
@@ -4333,6 +4220,9 @@ document.addEventListener('DOMContentLoaded', () => {
           !menuBtn.contains(e.target)) {
         closeSidebar();
       }
-    }
-  });
+    });
+  }
 });
+</script>
+</body>
+</html>
