@@ -1452,6 +1452,9 @@ body {
   align-items: flex-end;
   gap: 12px;
   transition: all var(--transition-base);
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .input-container:focus-within {
@@ -1471,6 +1474,9 @@ body {
   resize: none;
   max-height: 120px;
   line-height: 1.6;
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .chat-input::placeholder {
@@ -1491,6 +1497,9 @@ body {
   transition: all var(--transition-base);
   flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .btn-send:hover:not(:disabled) {
@@ -1554,7 +1563,7 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-medium);
-    z-index: 100;
+    z-index: 1000;
   }
   
   /* Контейнер ввода адаптивный */
@@ -1580,12 +1589,16 @@ body {
     min-width: 44px;
     min-height: 44px;
     padding: 10px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
   
   /* Кнопки в топбаре */
   .btn-new-chat, .btn-settings {
     min-width: 40px;
     min-height: 40px;
+    touch-action: manipulation;
   }
   
   /* Сообщения более компактные */
@@ -2574,11 +2587,15 @@ textarea.form-input {
           id="chat-input" 
           placeholder="Введите сообщение..."
           rows="1"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="sentences"
+          spellcheck="true"
           onkeydown="handleInputKeydown(event)"
           oninput="autoResizeInput(this)"
         ></textarea>
         
-        <button class="btn-send" id="send-button">
+        <button class="btn-send" id="send-button" type="button" onclick="sendMessage()">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
           </svg>
@@ -4304,25 +4321,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 250);
   });
-  
-  // Обработка кнопки отправки для мобильных устройств
-  const sendButton = document.getElementById('send-button');
-  if (sendButton) {
-    // Добавляем touchstart для лучшей отзывчивости на мобильных
-    sendButton.addEventListener('touchstart', (e) => {
-      e.preventDefault(); // Предотвращаем двойное срабатывание
-      if (!STATE.isGenerating) {
-        sendMessage();
-      }
-    }, { passive: false });
-    
-    // Оставляем click для desktop
-    sendButton.addEventListener('click', (e) => {
-      if (!STATE.isGenerating) {
-        sendMessage();
-      }
-    });
-  }
   
   // Закрытие сайдбара при клике вне его на мобильных
   document.addEventListener('click', (e) => {
